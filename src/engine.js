@@ -482,7 +482,7 @@
     } else {
       const sheetW = wide ? 430 : 0;
       const want = S.overview
-        ? { x: BOUNDS.cx, y: BOUNDS.cy, z: Math.min((W - sheetW) / (BOUNDS.w + 700), (wide ? H - (OPTS.review ? 190 : 110) : H * (OPTS.review ? 0.22 : 0.34)) / (BOUNDS.h + 500)), fx: wide ? (W - sheetW + 20) / 2 : W / 2, fy: wide ? H / 2 + (OPTS.review ? 60 : 24) : H * (OPTS.review ? 0.3 : 0.24) }
+        ? { x: BOUNDS.cx, y: BOUNDS.cy, z: Math.min((W - sheetW) / (BOUNDS.w + 700), (wide ? H - 110 : H * (OPTS.review ? 0.25 : 0.34)) / (BOUNDS.h + 500)), fx: wide ? (W - sheetW + 20) / 2 : W / 2, fy: wide ? H / 2 + 24 : H * (OPTS.review ? 0.28 : 0.24) }
         : { x: posOf(S.at).x, y: posOf(S.at).y, z: S.at ? zb * 1.15 : zb, fx: W / 2, fy: H * 0.3 };
       cam.x += (want.x - cam.x) * k; cam.y += (want.y - cam.y) * k; cam.z += (want.z - cam.z) * k;
       cam.fx += (want.fx - cam.fx) * k; cam.fy += (want.fy - cam.fy) * k;

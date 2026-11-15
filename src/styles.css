@@ -82,13 +82,10 @@ body.bleed .stage { border: 0; border-radius: 0; max-width: none; height: max(56
 .seg button[aria-pressed="true"] { background: var(--ink); color: var(--space); }
 .chip { min-height: 44px; padding: 0 14px; border-radius: var(--pill); cursor: pointer; border: 1.5px solid var(--rule); background: var(--panel); color: var(--ink); font: 500 12.5px var(--mono); }
 
-/* ---------- review-only switches (look and route) ---------- */
-.review { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); z-index: 7; display: flex; flex-direction: column; align-items: center; gap: 6px; max-width: calc(100% - 24px); }
-.review .row { display: flex; align-items: center; gap: 8px; }
-.review span { font: 11px var(--mono); color: var(--dim); white-space: nowrap; width: 38px; text-align: right; }
-.review .seg button { min-height: 36px; padding: 0 11px; font-size: 12px; white-space: nowrap; }
-.review .seg button i { font-style: normal; }
-@media (max-width: 640px) { .review span, .review .seg button i { display: none; } .review [data-route] { min-width: 44px; } }
+/* ---------- review-only dropdowns (look and route) ---------- */
+.review { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); z-index: 7; display: flex; justify-content: center; gap: 8px; max-width: calc(100% - 24px); }
+.review select { min-height: 44px; max-width: 100%; padding: 0 10px; border-radius: var(--pill); border: 1.5px solid var(--rule); background: var(--panel); color: var(--ink); font: 500 12.5px var(--mono); cursor: pointer; }
+@media (min-width: 760px) { .review { top: 12px; } }
 
 /* ---------- hub ---------- */
 .pill {
@@ -128,7 +125,8 @@ body.bleed .stage { border: 0; border-radius: 0; max-width: none; height: max(56
 
 /* ---------- station view ---------- */
 .station { position: absolute; inset: 0; z-index: 3; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; padding: 84px 22px 28px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-.has-review .station { padding-top: 164px; }
+.has-review .station { padding-top: 124px; }
+@media (min-width: 760px) { .has-review .station { padding-top: 84px; } }
 .station.show { opacity: 1; pointer-events: auto; }
 .st-inner { max-width: 1080px; min-height: 100%; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "media" "body"; gap: 18px 56px; align-content: center; }
 .st-inner:not(.has-media) { grid-template-areas: "head" "body"; max-width: 860px; }
@@ -194,7 +192,7 @@ html[data-variant="console"] .station.show .rise { animation: appear 0.01s steps
   display: flex; flex-direction: column; gap: 14px;
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
 }
-.has-review .sheet { top: 154px; }
+.has-review .sheet { top: 68px; }
 .sheet h2 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 22px; line-height: 1.15; text-transform: var(--name-case); }
 .sheet h3 { margin: 0 0 2px; display: flex; align-items: center; gap: 8px; font: 500 12.5px var(--mono); }
 .sheet h3 i { width: 22px; height: 7px; border-radius: 4px; flex: none; }
