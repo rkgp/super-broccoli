@@ -3,7 +3,7 @@
  *
  *   node build.mjs                      real site -> dist/index.html (+ dist/assets)
  *   node build.mjs --variant=deep       choose the branch: line | deep | console
- *   node build.mjs --route=galaxy       choose the line shape: metro | serpentine | galaxy | river | loops
+ *   node build.mjs --route=galaxy       choose the line shape: metro | serpentine | galaxy | river | loops | cascade
  *   node build.mjs --review             add the look and route switches (for comparing, not for the live site)
  *   node build.mjs --noindex            ask search engines not to list the page (for previews)
  *   node build.mjs --artifact           also write dist/artifact.html (a page fragment for previews)
@@ -20,7 +20,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 const VARIANTS = ['line', 'deep', 'console'];
 const variant = VARIANTS.includes(args.variant) ? args.variant : 'line';
-const ROUTES = ['metro', 'serpentine', 'galaxy', 'river', 'loops'];
+const ROUTES = ['metro', 'serpentine', 'galaxy', 'river', 'loops', 'cascade'];
 const route = ROUTES.includes(args.route) ? args.route : 'metro';
 const site = JSON.parse(read('content/site.json'));
 

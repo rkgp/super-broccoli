@@ -78,7 +78,7 @@ node build.mjs --variant=console   # 3 Console: grid, readouts, typed text, mono
 
 ## Routes (line shapes)
 
-Five shapes for the lines; stations keep the same spacing on each:
+Six shapes for the lines; stations keep the same spacing on each:
 
 ```
 node build.mjs --route=metro        # A: long straights with 45 degree bends (default)
@@ -86,6 +86,7 @@ node build.mjs --route=serpentine   # B: rows that run out and back, with 45 deg
 node build.mjs --route=galaxy       # C: two spiral arms around the hub
 node build.mjs --route=river        # D: a meandering curve that drifts outward
 node build.mjs --route=loops        # E: each line leaves the hub and loops back to it
+node build.mjs --route=cascade      # F: the river's drift in straight lines: level runs and 45 degree drops
 ```
 
 To compare looks and routes side by side with switches: `node build.mjs --review`.

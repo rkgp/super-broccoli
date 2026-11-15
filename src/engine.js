@@ -34,7 +34,7 @@
   // Routes: the shape of the lines. Stations keep the same spacing along every route.
   const ROUTES = [
     { key: 'metro', label: 'Metro' }, { key: 'serpentine', label: 'Serpentine' }, { key: 'galaxy', label: 'Galaxy' },
-    { key: 'river', label: 'River' }, { key: 'loops', label: 'Loops' }
+    { key: 'river', label: 'River' }, { key: 'loops', label: 'Loops' }, { key: 'cascade', label: 'Cascade' }
   ];
   let BOUNDS = { cx: 0, cy: 0, w: 1, h: 1 };
   function pathLen(pts) { let len = 0; for (let i = 0; i < pts.length - 1; i++) len += Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]); return len; }
@@ -77,6 +77,16 @@
         u += 20; const o = A * Math.sin(TAU * u / lam);
         const x = s * (u * Math.cos(al) + o * Math.sin(al)), y = u * Math.sin(al) - o * Math.cos(al);
         len += Math.hypot(x - px, y - py); px = x; py = y; pts.push([x, y]);
+      }
+      return cut(pts, need);
+    }
+    if (route === 'cascade') {
+      // the river's drift in straight lines: level runs joined by 45 degree drops
+      const runs = [520, 380, 460, 340], drops = [250, 330, 210, 290]; let x = 0, y = 0, i = 0;
+      while (pathLen(pts) < need) {
+        x += runs[i % 4]; pts.push([s * x, y]);
+        x += drops[i % 4]; y += drops[i % 4]; pts.push([s * x, y]);
+        i++;
       }
       return cut(pts, need);
     }
