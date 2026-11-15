@@ -1,0 +1,15 @@
+{
+  "name": "jorritvanderveen-site",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Personal site of Jorrit van der Veen: a space map drawn from one content file.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:deep": "node build.mjs --variant=deep",
+    "build:console": "node build.mjs --variant=console",
+    "review": "node build.mjs --review --artifact",
+    "check": "node build.mjs && node tools/shots.cjs dist/index.html shots check"
+  },
+  "engines": { "node": ">=20" }
+}

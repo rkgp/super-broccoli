@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "name": "Jorrit van der Veen",
+    "monogram": "JV",
+    "role": "AI & Analytics Specialist in Procurement & Finance",
+    "pitch": "I build AI tools, dashboards and automations that multiply what a small team can do.",
+    "cta": "Pick a line and take a ride.",
+    "linkedin": "https://www.linkedin.com/in/jorrit-van-der-veen/",
+    "siteUrl": "https://www.jorritvanderveen.com/",
+    "pageTitle": "Jorrit van der Veen · AI & Analytics in Procurement & Finance",
+    "description": "Jorrit van der Veen builds AI tools, dashboards and automations for procurement and finance teams. Explore his work and his own builds as a map.",
+    "privacy": "No cookies. Visits are counted anonymously."
+  },
+  "about": {
+    "title": "About me",
+    "paragraphs": [
+      "I build what makes procurement and finance teams more effective: AI and Python tools that turn messy data into decisions, dashboards people act on, and automations that multiply what a small team can do.",
+      "My background is in supply chain (MSc, VU Amsterdam), with analyst roles close to the business: tenders and a data-driven pricing tool at C.H. Robinson, then advising the CFO with analytics at Tumble 'N Dry. At KPN, I moved from analysing procurement processes to building the solutions myself."
+    ],
+    "howTitle": "How I work",
+    "how": "I use AI to cut through noise, not add to it, and to build and analyse at a scale I couldn't reach on my own. I keep the numbers trustworthy, and choose the simple solution that works over the perfect one that never arrives.",
+    "experience": [
+      { "role": "Procurement AI & Analytics Specialist", "org": "KPN", "period": "Jan 2023 – present" },
+      { "role": "Procurement Process Analyst", "org": "KPN", "period": "Jun 2020 – Dec 2022" },
+      { "role": "Business Analyst", "org": "Tumble 'N Dry", "period": "Jun 2017 – May 2020" },
+      { "role": "Pricing & Business Analyst", "org": "C.H. Robinson", "period": "Dec 2015 – May 2017" }
+    ],
+    "education": [
+      { "what": "MSc, VU Amsterdam", "period": "2015 – 2016" },
+      { "what": "Bachelor, University of Groningen", "period": "2010 – 2015" }
+    ],
+    "skills": ["Python", "LLMs", "AI agents", "Power BI", "Power Automate", "Power Apps"],
+    "languages": ["Dutch", "English", "French", "German"]
+  },
+  "lines": [
+    {
+      "key": "work",
+      "title": "Work line",
+      "short": "Work",
+      "blurb": "AI tools, dashboards and automations built at work",
+      "color": "#EE8E6C",
+      "stations": [
+        {
+          "id": "payment-terms", "express": true, "org": "KPN", "name": "Payment terms",
+          "kicker": "AI checked our contracts against the payment terms in our ERP.",
+          "stats": [
+            { "n": "~250,000", "l": "contract pages checked" },
+            { "n": "Tens of millions", "l": "of euros in yearly spend paid earlier than agreed" }
+          ],
+          "did": [
+            "Proposed the check as Procurement's representative in KPN's CFO working capital group.",
+            "Ran LLM extraction over the contract archive and compared the result with ERP master data.",
+            "Corrected terms with key suppliers and presented the results to the CFOs."
+          ],
+          "tools": ["Python", "LLM extraction", "OCR"],
+          "viz": "check"
+        },
+        {
+          "id": "contract-ai", "express": true, "org": "KPN", "name": "Contract AI",
+          "kicker": "A Python tool that searches the contract archive by keyword or by meaning.",
+          "stats": [{ "n": "10,000+", "l": "contracts searchable" }],
+          "did": [
+            "Plain matching where the hits are clear, an LLM where meaning matters.",
+            "ContractLens reads the archive once, then searches it in seconds.",
+            "Questions across the whole portfolio get answered at scale, not through a large manual effort."
+          ],
+          "tools": ["Python", "LLMs", "OCR", "FastAPI"],
+          "viz": "search",
+          "related": [{ "id": "pala-note", "why": "Both read documents with OCR" }]
+        },
+        {
+          "id": "procurement-radar", "express": true, "org": "KPN", "name": "Procurement Radar",
+          "kicker": "The Power BI hub that procurement starts from.",
+          "stats": [{ "n": "25", "l": "dashboards" }, { "n": "500+", "l": "users" }],
+          "did": [
+            "Built and run the hub, from supplier, category and contract insights to a personal view for every buyer.",
+            "Managers get the same view for their team.",
+            "For the management team, AI writes the KPI analysis."
+          ],
+          "tools": ["Power BI", "DAX", "Power Query"],
+          "viz": "tiles"
+        },
+        {
+          "id": "automations", "express": true, "org": "KPN", "name": "Automations",
+          "kicker": "The automation layer that runs in the background.",
+          "stats": [
+            { "n": "40+", "l": "automations" },
+            { "n": "200", "l": "hours of manual work saved a month, estimated" },
+            { "n": "20+", "l": "data-quality checks" }
+          ],
+          "did": [
+            "Built and run Power Automate flows that integrate data and automate reporting.",
+            "Built Procurement Sonar, which shows the hidden automation as runs and hours saved."
+          ],
+          "tools": ["Power Automate", "Office Scripts", "Power BI"],
+          "viz": "flows"
+        },
+        {
+          "id": "kpi-analysis", "express": false, "org": "KPN", "name": "KPI analysis by AI",
+          "kicker": "A management KPI view where AI writes the analysis.",
+          "stats": [],
+          "did": [
+            "Built a self-service KPI overview with drill-down to the detail dashboards.",
+            "Every number comes straight from the BI model; the LLM only explains it.",
+            "Replaced the manual preparation of performance decks."
+          ],
+          "tools": ["Power BI", "LLM API"]
+        },
+        {
+          "id": "contract-app", "express": false, "org": "KPN", "name": "Contract app",
+          "kicker": "Eagle Eye, a working contract-management app on top of ERP data.",
+          "stats": [],
+          "did": [
+            "Adds action and obligation tracking for contracts, suppliers and owners.",
+            "Reads ERP contract data and keeps its own actions, so the ERP stays the system of record."
+          ],
+          "tools": ["React", "TypeScript", "Power Apps", "Dataverse"],
+          "related": [{ "id": "this-website", "why": "Both built with AI-assisted coding" }]
+        },
+        {
+          "id": "price-scraper", "express": false, "org": "KPN", "name": "Price scraper",
+          "kicker": "Market prices, collected every week.",
+          "stats": [],
+          "did": [
+            "Built a Python web scraper that benchmarks market prices weekly.",
+            "Gives negotiations evidence to start from."
+          ],
+          "tools": ["Python", "Playwright"]
+        },
+        {
+          "id": "project-tool", "express": false, "org": "KPN", "name": "Project tool",
+          "kicker": "The tool procurement tracks its projects and savings in.",
+          "stats": [
+            { "n": "Well over a thousand", "l": "procurement projects tracked" },
+            { "n": "Hundreds of millions", "l": "in savings tracked" }
+          ],
+          "did": [
+            "Built the project management tool in Power Apps.",
+            "Added a one-click satisfaction survey: results go to the buyer and their manager and feed a dashboard."
+          ],
+          "tools": ["Power Apps", "Power Automate"]
+        },
+        {
+          "id": "agent-platform", "express": false, "org": "KPN", "name": "Agent platform",
+          "kicker": "PIA, the Procurement Intelligent Agent.",
+          "stats": [],
+          "did": [
+            "Built and run the infrastructure behind a Copilot Studio agent that routes questions to specialist sub-agents.",
+            "Help colleagues build their own sub-agents and set the quality bar for what joins the platform."
+          ],
+          "tools": ["Copilot Studio", "AI agents"]
+        },
+        {
+          "id": "deck-forge", "express": false, "org": "KPN", "name": "Deck Forge",
+          "kicker": "An AI agent that turns an idea into a finished, on-brand presentation or animated explainer.",
+          "stats": [],
+          "did": [
+            "Idea in, deck or one-slide motion design out.",
+            "The outline is signed off first, and invented numbers are not allowed."
+          ],
+          "tools": ["AI agents", "LLMs"]
+        },
+        {
+          "id": "approval-prediction", "express": false, "org": "KPN", "name": "Approval prediction",
+          "kicker": "A machine learning model that predicts how long a contract approval will take.",
+          "stats": [],
+          "did": [
+            "Trained on historical approval data and the variables that drive it.",
+            "Aim: better forecasts and fewer unexpected delays in the procurement process."
+          ],
+          "tools": ["Python", "Dataiku", "Machine learning"]
+        },
+        {
+          "id": "buying-forecast", "express": false, "org": "Tumble 'N Dry", "name": "Buying forecast",
+          "kicker": "An Excel model that predicts full-season buying needs from presales.",
+          "stats": [],
+          "did": [
+            "Analysed presales patterns to predict what to buy for the full season.",
+            "Reduced overstock and improved inventory turnover."
+          ],
+          "tools": ["Excel", "Forecasting"]
+        }
+      ]
+    },
+    {
+      "key": "builds",
+      "title": "Builds line",
+      "short": "Builds",
+      "blurb": "Hardware and software I build at home",
+      "color": "#7DB4E0",
+      "stations": [
+        {
+          "id": "radar-scope", "express": true, "org": "Own build", "name": "Radar scope",
+          "kicker": "A mmWave radar scope for my desk.",
+          "stats": [],
+          "did": [
+            "An HLK-LD2450 radar sensor, an ESP32-S3 and a small TFT display.",
+            "My first embedded project, finished in October 2026."
+          ],
+          "tools": ["ESP32-S3", "mmWave radar"],
+          "media": [
+            { "src": "", "alt": "The radar scope on a desk", "caption": "Photo follows" },
+            { "src": "", "alt": "Build progress", "caption": "Build photo" },
+            { "src": "", "alt": "Build progress", "caption": "Build photo" }
+          ]
+        },
+        {
+          "id": "pala-note", "express": true, "org": "Own build", "name": "Pala Note",
+          "kicker": "A voice recorder whose notes land in Obsidian.",
+          "stats": [],
+          "did": [
+            "An ESP32-S3 recorder, transcription on a Raspberry Pi, then sync to Obsidian.",
+            "A second pipeline reads handwritten reMarkable notes with OCR.",
+            "A 3D-printed enclosure with my JV monogram."
+          ],
+          "tools": ["ESP32-S3", "Raspberry Pi", "OCR"],
+          "media": [
+            { "src": "", "alt": "The Pala Note recorder", "caption": "Photo follows" },
+            { "src": "", "alt": "Build progress", "caption": "Build photo" },
+            { "src": "", "alt": "Build progress", "caption": "Build photo" }
+          ],
+          "related": [{ "id": "contract-ai", "why": "Both read documents with OCR" }]
+        },
+        {
+          "id": "iss-console", "express": true, "org": "Own build", "name": "ISS console",
+          "kicker": "Where the space station is, right now.",
+          "stats": [],
+          "did": [
+            "A Raspberry Pi 4 with a 7-inch touchscreen, in a Matrix theme.",
+            "Tracks the ISS in real time with SGP4 orbit calculations."
+          ],
+          "tools": ["Raspberry Pi", "Python"],
+          "media": [
+            { "src": "", "alt": "The ISS console showing the station's track", "caption": "Photo follows" },
+            { "src": "", "alt": "Build progress", "caption": "Build photo" },
+            { "src": "", "alt": "Build progress", "caption": "Build photo" }
+          ]
+        },
+        {
+          "id": "robot-car", "express": false, "org": "Own build", "name": "Robot car",
+          "kicker": "A robot car that learns one skill at a time.",
+          "stats": [],
+          "did": [
+            "Elegoo Smart Robot Car V4: line follower, obstacle avoider, then cat follower.",
+            "Next is a SunFounder PiCar-X."
+          ],
+          "tools": ["Robotics"],
+          "media": [{ "src": "", "alt": "The robot car", "caption": "Photo follows" }]
+        },
+        {
+          "id": "cat-patrol-bot", "express": false, "org": "Concept", "name": "Cat Patrol Bot",
+          "kicker": "A parked concept: a robot that patrols the house and finds the cat.",
+          "stats": [],
+          "did": [
+            "ROS2 patrol robot with lidar mapping and cat detection.",
+            "A web dashboard to watch and steer it."
+          ],
+          "tools": ["ROS2", "Lidar", "Computer vision"]
+        },
+        {
+          "id": "this-website", "express": false, "org": "Own build", "name": "This website",
+          "kicker": "A space map drawn from one content file.",
+          "stats": [],
+          "did": [
+            "Every station comes from one content file; adding a project is one entry.",
+            "No cookies and nothing that follows you around.",
+            "Directed by me; an AI assistant wrote the code."
+          ],
+          "tools": ["JavaScript", "Canvas"],
+          "related": [{ "id": "contract-app", "why": "Both built with AI-assisted coding" }]
+        }
+      ]
+    }
+  ]
+}
