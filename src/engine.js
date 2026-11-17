@@ -120,7 +120,7 @@
     BOUNDS = { cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, w: x1 - x0, h: y1 - y0 };
   }
   const routeOk = (r) => ROUTES.some((x) => x.key === r);
-  layout(routeOk(OPTS.route) ? OPTS.route : 'metro');
+  layout(routeOk(OPTS.route) ? OPTS.route : 'galaxy');
   const TOTAL = LINES.reduce((a, L) => a + L.stations.length, 0);
 
   function along(pts, d) {
@@ -148,7 +148,7 @@
 
   // ---------- state ----------
   let W = 0, H = 0, DPR = 1;
-  const S = { at: null, travel: null, overview: false, service: 'express', view: null, busy: false, variant: 'line', route: routeOk(OPTS.route) ? OPTS.route : 'metro', code: null };
+  const S = { at: null, travel: null, overview: false, view: null, busy: false, variant: 'line', route: routeOk(OPTS.route) ? OPTS.route : 'galaxy', code: null };
   const rev = [], revT = [];
   LINES.forEach((L, li) => { rev[li] = 0; revT[li] = 170; });
   let enter = 0, wipe = null, showTimer = 0, vizStop = null, lastHash = '', born = 0;
@@ -182,7 +182,7 @@
     if (S.view === 'station' && vizStop && window.Diagrams) { startViz(); }
   }
   function setRoute(r, show) {
-    if (!routeOk(r)) r = 'metro';
+    if (!routeOk(r)) r = 'galaxy';
     S.route = r; S.travel = null; S.busy = false; hideViewNow(); S.at = null;
     layout(r);
     LINES.forEach(function (L, li) { rev[li] = 0; revT[li] = 0; });
@@ -200,9 +200,8 @@
     LINES.forEach(function (L, li) { revT[li] = Math.max(revT[li], stub); });
   }
 
-  const served = (l, i) => S.service === 'all' || LINES[l].stations[i].express;
-  function nextServed(at) { const st = LINES[at.l].stations; for (let j = at.i + 1; j < st.length; j++) if (served(at.l, j)) return j; return -1; }
-  function prevServed(at) { for (let j = at.i - 1; j >= 0; j--) if (served(at.l, j)) return j; return -1; }
+  function nextServed(at) { return at.i + 1 < LINES[at.l].stations.length ? at.i + 1 : -1; }
+  function prevServed(at) { return at.i > 0 ? at.i - 1 : -1; }
   const posOf = (at) => (at ? along(LINES[at.l].pts, LINES[at.l].stations[at.i].d) : { x: 0, y: 0 });
   function revealTo(at) { if (at) { const L = LINES[at.l]; revT[at.l] = Math.max(revT[at.l], Math.min(L.len, L.stations[at.i].d + 130)); } }
 
@@ -234,8 +233,8 @@
   }
   function renderStation() {
     const at = S.at, L = LINES[at.l], st = L.stations[at.i]; let n = 0;
-    const nx = nextServed(at), pv = prevServed(at), more = at.i + 1 < L.stations.length;
-    const rel = (st.related || []).filter((r) => BYID[r.id]);
+    const nx = nextServed(at), pv = prevServed(at);
+    const others = LINES.filter((O) => O.li !== at.l);
     const media = mediaHtml(st, L);
     stationEl.className = 'station'; stationEl.style.setProperty('--line', L.color);
     stInner.className = 'st-inner' + (media ? ' has-media' : '');
@@ -254,17 +253,16 @@
     if (st.did && st.did.length) h += '<ul class="did rise" style="--i:' + (n++) + '">' + st.did.map((d) => '<li>' + esc(d) + '</li>').join('') + '</ul>';
     if (st.tools && st.tools.length) h += '<div class="tools rise" style="--i:' + (n++) + '">' + st.tools.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div>';
     h += '<div class="acts rise" style="--i:' + (n++) + '">';
+    // Next, previous, back to the start, switch line. At the end of a line, switching line leads.
     if (nx >= 0) h += '<button class="btn primary" type="button" data-go="' + at.l + ':' + nx + '">Next stop: ' + esc(L.stations[nx].name) + '</button>';
-    else if (more) h += '<button class="btn primary" type="button" data-keep="' + at.l + ':' + (at.i + 1) + '">Keep going: all stops</button>';
     if (pv >= 0) h += '<button class="btn" type="button" data-go="' + at.l + ':' + pv + '">Previous</button>';
-    h += '<button class="btn' + (nx < 0 && !more ? ' primary' : '') + '" type="button" data-go="hub">Back to the start</button>';
-    rel.forEach(function (r) {
-      const x = BYID[r.id];
-      h += '<button class="btn" type="button" data-go="' + x.l + ':' + x.i + '" data-transfer="1"><i style="background:' + LINES[x.l].color + '"></i>Change to ' + esc(LINES[x.l].stations[x.i].name) + '</button>';
+    h += '<button class="btn" type="button" data-go="hub">Back to the start</button>';
+    others.forEach(function (O, k) {
+      h += '<button class="btn' + (nx < 0 && k === 0 ? ' primary' : '') + '" type="button" data-go="' + O.li + ':0" data-switch="1"><i style="background:' + O.color + '"></i>Switch to ' + esc(O.title) + '</button>';
     });
     h += '</div>';
-    if (rel.length) h += '<div class="why rise" style="--i:' + (n++) + '">Transfer: ' + esc(rel.map((r) => r.why).filter(Boolean).join('; ')) + '</div>';
-    h += '</div>';
+    if (nx < 0) h += '<div class="why rise" style="--i:' + (n++) + '">End of the ' + esc(L.title) + ' line. Like what you see? <a href="' + esc(SITE.meta.linkedin) + '" target="_blank" rel="noopener" data-track="LinkedIn">Get in touch on LinkedIn</a>' + (SITE.meta.email ? ' or <a href="mailto:' + esc(SITE.meta.email) + '" data-track="Email">by email</a>' : '') + '.</div>';
+    h += credit() + '</div>';
     stInner.innerHTML = h;
   }
   function renderAbout() {
@@ -279,7 +277,7 @@
     h += '<div><h3>Education</h3><ul class="tl">' + A.education.map((x) => '<li><b>' + esc(x.what) + '</b><span>' + esc(x.period) + '</span></li>').join('') + '</ul>';
     h += '<h3 style="margin-top:18px">Works with</h3><div class="tools">' + A.skills.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div>';
     h += '<h3 style="margin-top:18px">Languages</h3><div class="tools">' + A.languages.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div></div></div>';
-    h += '<div class="acts rise" style="--i:' + (n++) + '"><a class="btn primary" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a><button class="btn" type="button" data-go="hub">Back to the map</button></div></div>';
+    h += '<div class="acts rise" style="--i:' + (n++) + '"><a class="btn primary" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a><button class="btn" type="button" data-go="hub">Back to the map</button></div>' + credit() + '</div>';
     stInner.innerHTML = h;
   }
   function countUp() {
@@ -325,7 +323,7 @@
   }
   function openStation() {
     renderStation(); showView('station'); setHash(LINES[S.at.l].stations[S.at.i].id);
-    track('Station', { station: LINES[S.at.l].stations[S.at.i].id, line: LINES[S.at.l].key, service: S.service });
+    track('Station', { station: LINES[S.at.l].stations[S.at.i].id, line: LINES[S.at.l].key });
   }
   function openAbout() { renderAbout(); showView('about'); setHash('about'); track('About'); }
   function hideViewNow() {
@@ -339,7 +337,8 @@
     S.busy = true;
     setTimeout(function () { stationEl.hidden = true; S.busy = false; cb(); }, 380);
   }
-  function syncHub() { hubwrap.classList.toggle('out', !!(S.at || S.travel || S.overview || S.view)); }
+  function syncHub() { hubwrap.classList.toggle('out', !!(S.at || S.travel || S.overview || S.view)); stage.classList.toggle('viewing', !!S.view); }
+  const credit = () => (SITE.meta.credit ? '<div class="credit-inline">' + esc(SITE.meta.credit) + '</div>' : '');
 
   // ---------- travel ----------
   function go(target) {
@@ -383,20 +382,13 @@
     else if (!quiet && S.at) openStation();
     syncHub();
   }
-  function setService(v) {
-    S.service = v;
-    $('svc-express').setAttribute('aria-pressed', v === 'express' ? 'true' : 'false');
-    $('svc-all').setAttribute('aria-pressed', v === 'all' ? 'true' : 'false');
-    if (S.view === 'station' && S.at) { const shown = stationEl.classList.contains('show'); renderStation(); if (shown) startViz(); }
-    track('Service', { service: v });
-  }
   function renderSheet() {
     const M = SITE.meta;
     let h = '<h2>Everything, by line</h2><div class="tt"><button type="button" data-about="1"><b>' + esc(SITE.about.title) + '</b><span>Background, experience and how I work</span></button></div>';
     LINES.forEach(function (L) {
       h += '<div><h3><i style="background:' + L.color + '"></i>' + esc(L.title) + '</h3><p class="blurb">' + esc(L.blurb || '') + '</p><div class="tt">';
       L.stations.forEach(function (st, i) {
-        h += '<button type="button" data-jump="' + L.li + ':' + i + '"><b>' + esc(st.name) + (st.express ? '<em>express</em>' : '') + '</b><span>' + esc(st.kicker) + '</span></button>';
+        h += '<button type="button" data-jump="' + L.li + ':' + i + '"><b>' + esc(st.name) + '</b><span>' + esc(st.kicker) + '</span></button>';
       });
       h += '</div></div>';
     });
@@ -579,7 +571,7 @@
       ctx.globalAlpha = dimmed ? 0.3 : 1;
       L.stations.forEach(function (st, i) {
         if (st.d > dr - 1) return;
-        const a = along(L.pts, st.d), sp = map(a.x, a.y), on = served(li, i);
+        const a = along(L.pts, st.d), sp = map(a.x, a.y), on = true;
         if (sp[0] < -80 || sp[0] > W + 80 || sp[1] < -40 || sp[1] > H + 40) return;
         node(sp[0], sp[1], nr, L, on);
         if (showLabels && on) {
@@ -702,15 +694,17 @@
     else if (BYID[h]) jump(BYID[h]);
     else if (!h) jump(null);
   }
+  const contactbtn = $('contactbtn'), contactmenu = $('contactmenu');
   stage.addEventListener('click', function (ev) {
+    const a = ev.target.closest('a[data-track]'); if (a) track(a.dataset.track);
+    if (contactmenu && !contactmenu.hidden && !ev.target.closest('.contactwrap')) { contactmenu.hidden = true; contactbtn.setAttribute('aria-expanded', 'false'); }
     const b = ev.target.closest('button');
     if (b && stage.contains(b)) {
       if (b.dataset.board) { track('Board', { line: LINES[+b.dataset.board].key }); go({ l: +b.dataset.board, i: 0 }); }
-      else if (b.dataset.go) { if (b.dataset.transfer) track('Transfer'); go(parse(b.dataset.go)); }
-      else if (b.dataset.keep) { setService('all'); go(parse(b.dataset.keep)); }
+      else if (b === contactbtn) { const open = contactmenu.hidden; contactmenu.hidden = !open; b.setAttribute('aria-expanded', open ? 'true' : 'false'); if (open) track('Contact'); }
+      else if (b.dataset.go) { if (b.dataset.switch) track('Switch line', { to: LINES[parse(b.dataset.go).l].key }); go(parse(b.dataset.go)); }
       else if (b.dataset.jump) jump(parse(b.dataset.jump));
       else if (b.dataset.about) { if (S.busy || S.travel) return; if (S.at || S.overview) jump(null); openAbout(); }
-      else if (b.dataset.svc) setService(b.dataset.svc);
       else if (b === mapbtn) { if (!S.travel && !S.busy) setOverview(!S.overview); }
       return;
     }

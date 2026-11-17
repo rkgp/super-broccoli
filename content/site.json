@@ -9,7 +9,8 @@
     "siteUrl": "https://www.jorritvanderveen.com/",
     "pageTitle": "Jorrit van der Veen · AI & Analytics in Procurement & Finance",
     "description": "Jorrit van der Veen builds AI tools, dashboards and automations for procurement and finance teams. Explore his work and his own builds as a map.",
-    "privacy": "No cookies. Visits are counted anonymously."
+    "privacy": "No cookies. Visits are counted anonymously.",
+    "credit": "Built by Jorrit van der Veen"
   },
   "about": {
     "title": "About me",
@@ -35,13 +36,13 @@
   "lines": [
     {
       "key": "work",
-      "title": "Work line",
+      "title": "Work projects",
       "short": "Work",
       "blurb": "AI tools, dashboards and automations built at work",
       "color": "#EE8E6C",
       "stations": [
         {
-          "id": "payment-terms", "express": true, "org": "KPN", "name": "Payment terms",
+          "id": "payment-terms", "org": "KPN", "name": "Payment terms",
           "kicker": "AI checked our contracts against the payment terms in our ERP.",
           "stats": [
             { "n": "~250,000", "l": "contract pages checked" },
@@ -56,7 +57,7 @@
           "viz": "check"
         },
         {
-          "id": "contract-ai", "express": true, "org": "KPN", "name": "Contract AI",
+          "id": "contract-ai", "org": "KPN", "name": "Contract AI",
           "kicker": "A Python tool that searches the contract archive by keyword or by meaning.",
           "stats": [{ "n": "10,000+", "l": "contracts searchable" }],
           "did": [
@@ -65,11 +66,10 @@
             "Questions across the whole portfolio get answered at scale, not through a large manual effort."
           ],
           "tools": ["Python", "LLMs", "OCR", "FastAPI"],
-          "viz": "search",
-          "related": [{ "id": "pala-note", "why": "Both read documents with OCR" }]
+          "viz": "search"
         },
         {
-          "id": "procurement-radar", "express": true, "org": "KPN", "name": "Procurement Radar",
+          "id": "procurement-radar", "org": "KPN", "name": "Procurement Radar",
           "kicker": "The Power BI hub that procurement starts from.",
           "stats": [{ "n": "25", "l": "dashboards" }, { "n": "500+", "l": "users" }],
           "did": [
@@ -81,7 +81,7 @@
           "viz": "tiles"
         },
         {
-          "id": "automations", "express": true, "org": "KPN", "name": "Automations",
+          "id": "automations", "org": "KPN", "name": "Automations",
           "kicker": "The automation layer that runs in the background.",
           "stats": [
             { "n": "40+", "l": "automations" },
@@ -96,7 +96,7 @@
           "viz": "flows"
         },
         {
-          "id": "kpi-analysis", "express": false, "org": "KPN", "name": "KPI analysis by AI",
+          "id": "kpi-analysis", "org": "KPN", "name": "KPI analysis by AI",
           "kicker": "A management KPI view where AI writes the analysis.",
           "stats": [],
           "did": [
@@ -104,22 +104,20 @@
             "Every number comes straight from the BI model; the LLM only explains it.",
             "Replaced the manual preparation of performance decks."
           ],
-          "tools": ["Power BI", "LLM API"],
-          "related": [{ "id": "chess-commentator", "why": "An engine supplies the numbers; AI only explains them" }]
+          "tools": ["Power BI", "LLM API"]
         },
         {
-          "id": "contract-app", "express": false, "org": "KPN", "name": "Contract app",
+          "id": "contract-app", "org": "KPN", "name": "Contract app",
           "kicker": "Eagle Eye, a working contract-management app on top of ERP data.",
           "stats": [],
           "did": [
             "Adds action and obligation tracking for contracts, suppliers and owners.",
             "Reads ERP contract data and keeps its own actions, so the ERP stays the system of record."
           ],
-          "tools": ["React", "TypeScript", "Power Apps", "Dataverse"],
-          "related": [{ "id": "this-website", "why": "Both built with AI-assisted coding" }]
+          "tools": ["React", "TypeScript", "Power Apps", "Dataverse"]
         },
         {
-          "id": "price-scraper", "express": false, "org": "KPN", "name": "Price scraper",
+          "id": "price-scraper", "org": "KPN", "name": "Price scraper",
           "kicker": "Market prices, collected every week.",
           "stats": [],
           "did": [
@@ -129,7 +127,7 @@
           "tools": ["Python", "Playwright"]
         },
         {
-          "id": "project-tool", "express": false, "org": "KPN", "name": "Project tool",
+          "id": "project-tool", "org": "KPN", "name": "Project tool",
           "kicker": "The tool procurement tracks its projects and savings in.",
           "stats": [
             { "n": "Well over a thousand", "l": "procurement projects tracked" },
@@ -142,7 +140,7 @@
           "tools": ["Power Apps", "Power Automate"]
         },
         {
-          "id": "agent-platform", "express": false, "org": "KPN", "name": "Agent platform",
+          "id": "agent-platform", "org": "KPN", "name": "Agent platform",
           "kicker": "PIA, the Procurement Intelligent Agent.",
           "stats": [],
           "did": [
@@ -152,7 +150,7 @@
           "tools": ["Copilot Studio", "AI agents"]
         },
         {
-          "id": "deck-forge", "express": false, "org": "KPN", "name": "Deck Forge",
+          "id": "deck-forge", "org": "KPN", "name": "Deck Forge",
           "kicker": "An AI agent that turns an idea into a finished, on-brand presentation or animated explainer.",
           "stats": [],
           "did": [
@@ -160,38 +158,18 @@
             "The outline is signed off first, and invented numbers are not allowed."
           ],
           "tools": ["AI agents", "LLMs"]
-        },
-        {
-          "id": "approval-prediction", "express": false, "org": "KPN", "name": "Approval prediction",
-          "kicker": "A machine learning model that predicts how long a contract approval will take.",
-          "stats": [],
-          "did": [
-            "Trained on historical approval data and the variables that drive it.",
-            "Aim: better forecasts and fewer unexpected delays in the procurement process."
-          ],
-          "tools": ["Python", "Dataiku", "Machine learning"]
-        },
-        {
-          "id": "buying-forecast", "express": false, "org": "Tumble 'N Dry", "name": "Buying forecast",
-          "kicker": "An Excel model that predicts full-season buying needs from presales.",
-          "stats": [],
-          "did": [
-            "Analysed presales patterns to predict what to buy for the full season.",
-            "Reduced overstock and improved inventory turnover."
-          ],
-          "tools": ["Excel", "Forecasting"]
         }
       ]
     },
     {
-      "key": "builds",
-      "title": "Builds line",
-      "short": "Builds",
-      "blurb": "Hardware and software I build at home",
+      "key": "personal",
+      "title": "Personal projects",
+      "short": "Personal",
+      "blurb": "Hardware and software I build in my own time",
       "color": "#7DB4E0",
       "stations": [
         {
-          "id": "portable-radar", "express": true, "org": "Own build", "name": "Portable radar",
+          "id": "portable-radar", "org": "Own build", "name": "Portable radar",
           "kicker": "A mmWave radar that shows people moving around it, on a power bank.",
           "stats": [],
           "did": [
@@ -204,11 +182,10 @@
             { "src": "", "alt": "The portable radar showing people as blips", "caption": "Photo follows" },
             { "src": "", "alt": "Build progress", "caption": "Build photo" },
             { "src": "", "alt": "Build progress", "caption": "Build photo" }
-          ],
-          "related": [{ "id": "desk-buddy", "why": "Both run on an ESP32" }]
+          ]
         },
         {
-          "id": "pala-note", "express": true, "org": "Own build", "name": "Pala Note",
+          "id": "pala-note", "org": "Own build", "name": "Pala Note",
           "kicker": "A voice recorder whose notes land in Obsidian.",
           "stats": [],
           "did": [
@@ -221,11 +198,10 @@
             { "src": "", "alt": "The Pala Note recorder", "caption": "Photo follows" },
             { "src": "", "alt": "Build progress", "caption": "Build photo" },
             { "src": "", "alt": "Build progress", "caption": "Build photo" }
-          ],
-          "related": [{ "id": "contract-ai", "why": "Both read documents with OCR" }]
+          ]
         },
         {
-          "id": "iss-console", "express": true, "org": "Own build", "name": "ISS console",
+          "id": "iss-console", "org": "Own build", "name": "ISS console",
           "kicker": "Where the space station is, right now.",
           "stats": [],
           "did": [
@@ -240,7 +216,7 @@
           ]
         },
         {
-          "id": "chess-commentator", "express": false, "org": "Work in progress", "name": "Chess commentator",
+          "id": "chess-commentator", "org": "Work in progress", "name": "Chess commentator",
           "kicker": "A camera watches a real chessboard and commentates the game out loud.",
           "stats": [],
           "did": [
@@ -249,11 +225,10 @@
             "The commentary is spoken with text-to-speech."
           ],
           "tools": ["OpenCV", "Stockfish", "LLMs", "Text-to-speech"],
-          "media": [{ "src": "", "alt": "The chessboard with the camera above it", "caption": "Clip follows" }],
-          "related": [{ "id": "kpi-analysis", "why": "An engine supplies the numbers; AI only explains them" }]
+          "media": [{ "src": "", "alt": "The chessboard with the camera above it", "caption": "Clip follows" }]
         },
         {
-          "id": "desk-buddy", "express": false, "org": "Work in progress", "name": "Desk focus buddy",
+          "id": "desk-buddy", "org": "Work in progress", "name": "Desk focus buddy",
           "kicker": "A small screen next to my monitor that shows the one task I'm on.",
           "stats": [],
           "did": [
@@ -262,11 +237,10 @@
             "Switchable screen styles, from a departure board to a growing plant, each with its own idle animation."
           ],
           "tools": ["ESP32", "Telegram bot", "3D printing"],
-          "media": [{ "src": "", "alt": "The desk focus buddy next to a monitor", "caption": "Photo follows" }],
-          "related": [{ "id": "portable-radar", "why": "Both run on an ESP32" }]
+          "media": [{ "src": "", "alt": "The desk focus buddy next to a monitor", "caption": "Photo follows" }]
         },
         {
-          "id": "this-website", "express": false, "org": "Own build", "name": "This website",
+          "id": "this-website", "org": "Own build", "name": "This website",
           "kicker": "A space map drawn from one content file.",
           "stats": [],
           "did": [
@@ -274,8 +248,7 @@
             "No cookies and nothing that follows you around.",
             "Directed by me; an AI assistant wrote the code."
           ],
-          "tools": ["JavaScript", "Canvas"],
-          "related": [{ "id": "contract-app", "why": "Both built with AI-assisted coding" }]
+          "tools": ["JavaScript", "Canvas"]
         }
       ]
     }

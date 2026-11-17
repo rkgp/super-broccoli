@@ -2,8 +2,8 @@
 /* Zero-dependency build. Reads content/site.json and src/*, writes dist/.
  *
  *   node build.mjs                      real site -> dist/index.html (+ dist/assets)
- *   node build.mjs --variant=deep       choose the branch: line | deep | console
- *   node build.mjs --route=galaxy       choose the line shape: metro | serpentine | galaxy | river | loops | cascade
+ *   node build.mjs --variant=deep       choose the branch: line (default) | deep | console
+ *   node build.mjs --route=metro        choose the line shape: galaxy (default) | metro | serpentine | river | loops | cascade
  *   node build.mjs --review             add the look and route switches (for comparing, not for the live site)
  *   node build.mjs --noindex            ask search engines not to list the page (for previews)
  *   node build.mjs --artifact           also write dist/artifact.html (a page fragment for previews)
@@ -21,7 +21,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const VARIANTS = ['line', 'deep', 'console'];
 const variant = VARIANTS.includes(args.variant) ? args.variant : 'line';
 const ROUTES = ['metro', 'serpentine', 'galaxy', 'river', 'loops', 'cascade'];
-const route = ROUTES.includes(args.route) ? args.route : 'metro';
+const route = ROUTES.includes(args.route) ? args.route : 'galaxy';
 const site = JSON.parse(read('content/site.json'));
 
 /* ---------- check the content file, so a typo fails here and not on the live site ---------- */
@@ -34,14 +34,12 @@ function validate(s) {
     need(L, ['key', 'title', 'short', 'color'], `line ${L.key || '?'}`);
     if (!/^#[0-9A-Fa-f]{6}$/.test(L.color || '')) errors.push(`line ${L.key}: color must look like #RRGGBB`);
     if (!L.stations || !L.stations.length) errors.push(`line ${L.key}: needs at least one station`);
-    if (L.stations && !L.stations[0].express) errors.push(`line ${L.key}: the first station must be an express stop`);
     (L.stations || []).forEach((st) => {
       need(st, ['id', 'name', 'kicker'], `station ${st.id || st.name || '?'}`);
       if (!/^[a-z0-9][a-z0-9-]*$/.test(st.id || '')) errors.push(`station ${st.id}: id may only use a-z, 0-9 and hyphens`);
       if (reserved.test(st.id || '')) errors.push(`station ${st.id}: this id is reserved, pick another`);
       if (ids.has(st.id)) errors.push(`station ${st.id}: id is used twice`);
       ids.add(st.id);
-      if (typeof st.express !== 'boolean') errors.push(`station ${st.id}: "express" must be true or false`);
       (st.media || []).forEach((m) => { if (m.src && !m.alt) errors.push(`station ${st.id}: a photo needs "alt" text`); });
     });
   });
@@ -55,15 +53,21 @@ if (errors.length) { console.error('The content file has problems:\n  - ' + erro
 
 /* ---------- pieces ---------- */
 const M = site.meta;
+/* Contact, always in view: a LinkedIn link, or a small menu when an email address is set in meta. */
+function contact() {
+  const li = `<a href="${esc(M.linkedin)}" target="_blank" rel="noopener" data-track="LinkedIn">LinkedIn</a>`;
+  if (!M.email) return `    <a class="chip contact" href="${esc(M.linkedin)}" target="_blank" rel="noopener" data-track="LinkedIn">Get in touch</a>`;
+  return `    <div class="contactwrap">
+      <button class="chip contact" type="button" id="contactbtn" aria-expanded="false" aria-controls="contactmenu">Get in touch</button>
+      <div class="contactmenu" id="contactmenu" hidden>${li}<a href="mailto:${esc(M.email)}" data-track="Email">Email</a></div>
+    </div>`;
+}
 function body() {
   return `<script>document.documentElement.className += ' js';</script>
 <div class="stage" id="stage">
   <canvas id="cv" role="img" aria-label="Animated map: a hub with ${site.lines.map((L) => 'a ' + esc(L.title)).join(' and ')}"></canvas>
   <div class="bar">
-    <div class="seg" role="group" aria-label="Service">
-      <button type="button" id="svc-express" data-svc="express" aria-pressed="true">Express</button>
-      <button type="button" id="svc-all" data-svc="all" aria-pressed="false">All stops</button>
-    </div>
+${contact()}
     <button class="chip" id="mapbtn" type="button">See everything</button>
   </div>
   <div class="mappills gone" id="mappills"></div>
@@ -81,14 +85,15 @@ function body() {
   </div>
   <div class="station" id="station" hidden><div class="st-inner" id="st-inner"></div></div>
   <div class="sheet" id="sheet" hidden></div>
-</div>`;
+${M.credit ? `  <div class="credit">${esc(M.credit)}</div>
+` : ''}</div>`;
 }
 /* The same content as a plain document, for browsers without JavaScript and for search engines. */
 function plain() {
   const A = site.about;
   let h = `<div class="plain"><h1>${esc(M.name)}</h1><p class="dimtext">${esc(M.role)}</p>`;
   h += A.paragraphs.map((p) => `<p>${esc(p)}</p>`).join('') + `<p>${esc(A.how)}</p>`;
-  h += `<p><a href="${esc(M.linkedin)}">Contact me on LinkedIn</a></p>`;
+  h += `<p><a href="${esc(M.linkedin)}">Contact me on LinkedIn</a>${M.email ? ` · <a href="mailto:${esc(M.email)}">Email</a>` : ''}</p>`;
   site.lines.forEach((L) => {
     h += `<h2>${esc(L.title)}</h2>`;
     L.stations.forEach((st) => {
@@ -97,7 +102,8 @@ function plain() {
       if (st.did && st.did.length) h += `<ul>${st.did.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>`;
     });
   });
-  h += `<h2>Experience</h2><ul>${A.experience.map((x) => `<li>${esc(x.role)}, ${esc(x.org)} (${esc(x.period)})</li>`).join('')}</ul></div>`;
+  h += `<h2>Experience</h2><ul>${A.experience.map((x) => `<li>${esc(x.role)}, ${esc(x.org)} (${esc(x.period)})</li>`).join('')}</ul>`;
+  h += M.credit ? `<p class="dimtext">${esc(M.credit)}</p></div>` : '</div>';
   return h;
 }
 const FONT_FILES = [
