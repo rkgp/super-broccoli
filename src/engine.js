@@ -604,7 +604,7 @@
     }
 
     // arrival: the station opens up and fills the view
-    enter += ((S.view ? 1 : 0) - enter) * (RM ? 1 : 0.13);
+    enter += ((S.view ? 1 : 0) - enter) * (RM ? 1 : 0.11);   // arrival speed (softened 20% on 2026-11-17, was 0.13)
     if (enter > 0.004 && wipe) {
       const isAbout = wipe.kind === 'about', L2 = isAbout ? null : LINES[wipe.at.l];
       const color = isAbout ? C.ink : L2.color, tint = isAbout ? C.neutral : L2.tint;
@@ -624,7 +624,7 @@
         } else ctx.fillStyle = tint;
         ctx.beginPath(); ctx.arc(c[0], c[1], R, 0, TAU); ctx.fill();
         if (V.wipe === 'planet') { ctx.shadowColor = color; ctx.shadowBlur = 40; }
-        ctx.strokeStyle = color; ctx.lineWidth = lerp(3, 12, ee); ctx.stroke(); ctx.shadowBlur = 0;
+        ctx.strokeStyle = color; ctx.lineWidth = lerp(2.4, 9.6, ee); ctx.stroke(); ctx.shadowBlur = 0;
         if (da > 0) {
           const unit = Math.min(W, H) * 0.24;
           ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.fillStyle = color;
@@ -638,10 +638,10 @@
               ctx.arc(c[0] + ox * Math.cos(rot) - oy * Math.sin(rot), c[1] + ox * Math.sin(rot) + oy * Math.cos(rot), 3.4, 0, TAU); ctx.fill();
             }
           } else {
-            for (let ri = 1; ri <= 5; ri++) { ctx.globalAlpha = 0.13 * da; ctx.beginPath(); ctx.arc(c[0], c[1], unit * ri, 0, TAU); ctx.stroke(); }
+            for (let ri = 1; ri <= 5; ri++) { ctx.globalAlpha = 0.104 * da; ctx.beginPath(); ctx.arc(c[0], c[1], unit * ri, 0, TAU); ctx.stroke(); }
             for (let oi = 0; oi < 3; oi++) {
               const ang = (RM ? 0 : now * 0.00011 * (oi + 1)) + oi * 2.1, rr = unit * (oi + 2);
-              ctx.globalAlpha = 0.75 * da; ctx.beginPath(); ctx.arc(c[0] + Math.cos(ang) * rr, c[1] + Math.sin(ang) * rr, 3.2, 0, TAU); ctx.fill();
+              ctx.globalAlpha = 0.6 * da; ctx.beginPath(); ctx.arc(c[0] + Math.cos(ang) * rr, c[1] + Math.sin(ang) * rr, 3.2, 0, TAU); ctx.fill();
             }
           }
           ctx.globalAlpha = 1;
