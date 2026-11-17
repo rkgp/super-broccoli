@@ -262,7 +262,7 @@
     });
     h += '</div>';
     if (nx < 0) h += '<div class="why rise" style="--i:' + (n++) + '">End of the ' + esc(L.title) + ' line. Like what you see? <a href="' + esc(SITE.meta.linkedin) + '" target="_blank" rel="noopener" data-track="LinkedIn">Get in touch on LinkedIn</a>' + (SITE.meta.email ? ' or <a href="mailto:' + esc(SITE.meta.email) + '" data-track="Email">by email</a>' : '') + '.</div>';
-    h += credit() + '</div>';
+    h += '</div>';
     stInner.innerHTML = h;
   }
   function renderAbout() {
@@ -277,7 +277,7 @@
     h += '<div><h3>Education</h3><ul class="tl">' + A.education.map((x) => '<li><b>' + esc(x.what) + '</b><span>' + esc(x.period) + '</span></li>').join('') + '</ul>';
     h += '<h3 style="margin-top:18px">Works with</h3><div class="tools">' + A.skills.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div>';
     h += '<h3 style="margin-top:18px">Languages</h3><div class="tools">' + A.languages.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div></div></div>';
-    h += '<div class="acts rise" style="--i:' + (n++) + '"><a class="btn primary" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a><button class="btn" type="button" data-go="hub">Back to the map</button></div>' + credit() + '</div>';
+    h += '<div class="acts rise" style="--i:' + (n++) + '"><a class="btn primary" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a><button class="btn" type="button" data-go="hub">Back to the map</button></div></div>';
     stInner.innerHTML = h;
   }
   function countUp() {
@@ -338,7 +338,6 @@
     setTimeout(function () { stationEl.hidden = true; S.busy = false; cb(); }, 380);
   }
   function syncHub() { hubwrap.classList.toggle('out', !!(S.at || S.travel || S.overview || S.view)); stage.classList.toggle('viewing', !!S.view); }
-  const credit = () => (SITE.meta.credit ? '<div class="credit-inline">' + esc(SITE.meta.credit) + '</div>' : '');
 
   // ---------- travel ----------
   function go(target) {
