@@ -104,7 +104,8 @@
             "Every number comes straight from the BI model; the LLM only explains it.",
             "Replaced the manual preparation of performance decks."
           ],
-          "tools": ["Power BI", "LLM API"]
+          "tools": ["Power BI", "LLM API"],
+          "related": [{ "id": "chess-commentator", "why": "An engine supplies the numbers; AI only explains them" }]
         },
         {
           "id": "contract-app", "express": false, "org": "KPN", "name": "Contract app",
@@ -190,19 +191,21 @@
       "color": "#7DB4E0",
       "stations": [
         {
-          "id": "radar-scope", "express": true, "org": "Own build", "name": "Radar scope",
-          "kicker": "A mmWave radar scope for my desk.",
+          "id": "portable-radar", "express": true, "org": "Own build", "name": "Portable radar",
+          "kicker": "A mmWave radar that shows people moving around it, on a power bank.",
           "stats": [],
           "did": [
-            "An HLK-LD2450 radar sensor, an ESP32-S3 and a small TFT display.",
+            "An HLK-LD2450 radar sensor, an ESP32-S3 and a small TFT display, drawn as a classic radar scope.",
+            "Runs on a power bank, so it goes wherever I take it.",
             "My first embedded project, finished in October 2026."
           ],
           "tools": ["ESP32-S3", "mmWave radar"],
           "media": [
-            { "src": "", "alt": "The radar scope on a desk", "caption": "Photo follows" },
+            { "src": "", "alt": "The portable radar showing people as blips", "caption": "Photo follows" },
             { "src": "", "alt": "Build progress", "caption": "Build photo" },
             { "src": "", "alt": "Build progress", "caption": "Build photo" }
-          ]
+          ],
+          "related": [{ "id": "desk-buddy", "why": "Both run on an ESP32" }]
         },
         {
           "id": "pala-note", "express": true, "org": "Own build", "name": "Pala Note",
@@ -237,25 +240,30 @@
           ]
         },
         {
-          "id": "robot-car", "express": false, "org": "Own build", "name": "Robot car",
-          "kicker": "A robot car that learns one skill at a time.",
+          "id": "chess-commentator", "express": false, "org": "Work in progress", "name": "Chess commentator",
+          "kicker": "A camera watches a real chessboard and commentates the game out loud.",
           "stats": [],
           "did": [
-            "Elegoo Smart Robot Car V4: line follower, obstacle avoider, then cat follower.",
-            "Next is a SunFounder PiCar-X."
+            "An old iPhone films the board; computer vision recognises every move.",
+            "Each move goes to Stockfish; an LLM explains it from the pieces involved and the swing in evaluation.",
+            "The commentary is spoken with text-to-speech."
           ],
-          "tools": ["Robotics"],
-          "media": [{ "src": "", "alt": "The robot car", "caption": "Photo follows" }]
+          "tools": ["OpenCV", "Stockfish", "LLMs", "Text-to-speech"],
+          "media": [{ "src": "", "alt": "The chessboard with the camera above it", "caption": "Clip follows" }],
+          "related": [{ "id": "kpi-analysis", "why": "An engine supplies the numbers; AI only explains them" }]
         },
         {
-          "id": "cat-patrol-bot", "express": false, "org": "Concept", "name": "Cat Patrol Bot",
-          "kicker": "A parked concept: a robot that patrols the house and finds the cat.",
+          "id": "desk-buddy", "express": false, "org": "Work in progress", "name": "Desk focus buddy",
+          "kicker": "A small screen next to my monitor that shows the one task I'm on.",
           "stats": [],
           "did": [
-            "ROS2 patrol robot with lidar mapping and cat detection.",
-            "A web dashboard to watch and steer it."
+            "An ESP32 with a small screen in a 3D-printed case.",
+            "Send it a Telegram message and the task appears; mark it done and it clears for the next one.",
+            "Switchable screen styles, from a departure board to a growing plant, each with its own idle animation."
           ],
-          "tools": ["ROS2", "Lidar", "Computer vision"]
+          "tools": ["ESP32", "Telegram bot", "3D printing"],
+          "media": [{ "src": "", "alt": "The desk focus buddy next to a monitor", "caption": "Photo follows" }],
+          "related": [{ "id": "portable-radar", "why": "Both run on an ESP32" }]
         },
         {
           "id": "this-website", "express": false, "org": "Own build", "name": "This website",

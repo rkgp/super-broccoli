@@ -30,7 +30,7 @@ Open `content/site.json` and add one entry to a line's `stations` list:
   "did": ["What I did, one line.", "Another line."],
   "tools": ["ESP32", "Python"],
   "media": [{ "src": "assets/img/desk-buddy.webp", "alt": "The desk buddy on a desk" }],
-  "related": [{ "id": "radar-scope", "why": "Both run on an ESP32" }]
+  "related": [{ "id": "portable-radar", "why": "Both run on an ESP32" }]
 }
 ```
 
