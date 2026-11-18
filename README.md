@@ -37,8 +37,10 @@ Open `content/site.json` and add one entry to a line's `stations` list:
 - **`stats`:** numbers count up on arrival. Text such as "Tens of millions" is shown as is.
 - **Moving around:** every station offers next, previous, back to the start and a switch to
   the other line (its first station). Nothing to set in the content file.
-- **`viz`:** work stations can show an animated diagram instead of a photo. Available:
-  `check`, `search`, `tiles`, `flows` (see `src/diagrams.js`).
+- **`viz`:** any station can show an animated diagram (drawn from scratch, no real data).
+  Work: `check`, `search`, `tiles`, `flows`, `kpi`, `actions`, `prices`, `tracker`, `agents`,
+  `deck`. Personal: `radar`, `voice`, `orbit`, `chess`, `buddy`, `site` (see `src/diagrams.js`).
+  When a station has both, the animation comes first and photos follow.
 - **Mistakes:** the build checks the file (missing fields, duplicate ids, a photo without alt
   text) and stops with a plain message.
 
