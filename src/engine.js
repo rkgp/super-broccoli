@@ -420,7 +420,7 @@
       });
       h += '</div></div>';
     });
-    h += '<a class="link" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a><div class="fine">' + esc(M.privacy || '') + '</div>';
+    h += '<a class="link" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a>' + (M.privacy ? '<div class="fine">' + esc(M.privacy) + '</div>' : '');
     sheet.innerHTML = h;
   }
   function renderPills() {
