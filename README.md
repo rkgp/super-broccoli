@@ -116,15 +116,24 @@ functions). Build command `node build.mjs`, output folder `dist`. Nothing in the
 
 - **No cookies.** The site stores nothing in the browser.
 - **Fonts are self-hosted** (`assets/fonts`), so browsers do not contact Google.
-- **Statistics are off by default.** To switch on cookieless statistics with Plausible, add
-  this to `meta` in the content file:
-  `"analytics": { "provider": "plausible", "domain": "jorritvanderveen.com" }`.
-  The site then reports anonymous events: which line was boarded, which station was opened,
-  line switches and clicks on the contact links.
+- **Statistics: GoatCounter** (free, cookieless), switched on in `meta` of the content file:
+  `"analytics": { "provider": "goatcounter", "code": "rkgp" }`. Dashboard:
+  https://rkgp.goatcounter.com. The script is a self-hosted copy of GoatCounter's `count.js`
+  (`assets/goatcounter.js`, ISC licence); check it against https://gc.zgo.at/count.js once a year.
+  - **Pages:** the start (`/`), every station (`/contract-ai`) and About (`/about`).
+  - **Events:** `Board work`, `Switch to personal`, `See everything`, `Contact menu`,
+    `LinkedIn`, `Email`.
+  - **Your own visits:** open the site once with `#toggle-goatcounter` at the end of the
+    address (for example `https://www.jorritvanderveen.com/#toggle-goatcounter`) in each
+    browser you use. A pop-up confirms it; do it again to switch counting back on.
+  - Visitors with an ad blocker are not counted, so numbers run a little low.
+  - Plausible still works instead: `"analytics": { "provider": "plausible", "domain": "jorritvanderveen.com" }`.
+  - Remove `analytics` to switch statistics off.
 - **Personal links.** Send each application its own link, for example
-  `https://www.jorritvanderveen.com/?v=k7`. The code travels with the anonymous events, so
-  the statistics show that the link was opened and what was viewed. Keep your own list of
-  code, company and date. Use neutral codes, not company names.
+  `https://www.jorritvanderveen.com/?v=k7`. With GoatCounter every path of that visit starts
+  with the code (`/k7/`, `/k7/contract-ai`, `k7/LinkedIn`): type `k7` in the dashboard's
+  "Filter paths" box to see what that visitor viewed. Keep your own list of code, company and
+  date **outside this repository** (it is public). Use neutral codes, not company names.
 - **Direct links to a station** work too: `https://www.jorritvanderveen.com/#contract-ai`.
 
 ## Works without the animation

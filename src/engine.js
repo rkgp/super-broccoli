@@ -210,8 +210,37 @@
     try {
       const p = Object.assign({}, props || {}); if (S.code) p.code = S.code;
       if (typeof window.plausible === 'function') window.plausible(name, { props: p });
+      goat(name, props || {});
     } catch (e) { /* statistics must never break the site */ }
   }
+
+  // GoatCounter: views become pages (/contract-ai, /about), everything else an event.
+  // With a personal link (?v=k7) every path starts with the code (/k7/contract-ai, k7/LinkedIn),
+  // so filtering on "k7" in the dashboard shows what that link's visitor did.
+  const GC = { el: document.querySelector('script[data-goatcounter]'), queue: [], first: true };
+  if (GC.el) GC.el.addEventListener('load', function () { const q = GC.queue; GC.queue = []; q.forEach(goatSend); });
+  function goat(name, props) {
+    if (!GC.el) return;
+    if (name === 'Visit' && !GC.first) return; // arrived on a direct link: that station already counts as the first view
+    const pre = S.code ? S.code + '/' : '';
+    let hit;
+    if (name === 'Visit') hit = { path: '/' + pre, title: 'Start' };
+    else if (name === 'About') hit = { path: '/' + pre + 'about', title: 'About me' };
+    else if (name === 'Station') {
+      const L = LINES.find(function (x) { return x.key === props.line; });
+      const st = L && L.stations.find(function (x) { return x.id === props.station; });
+      hit = { path: '/' + pre + props.station, title: st ? st.name : props.station };
+    } else {
+      const label = name === 'Board' ? 'Board ' + props.line : name === 'Switch line' ? 'Switch to ' + props.to : name === 'Contact' ? 'Contact menu' : name;
+      hit = { path: pre + label, title: label, event: true };
+    }
+    // The outside referrer (LinkedIn, Google) belongs to the first view only; later views come from this site.
+    hit.referrer = GC.first ? document.referrer : location.origin + location.pathname;
+    if (!hit.event) GC.first = false;
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') goatSend(hit);
+    else GC.queue.push(hit);
+  }
+  function goatSend(hit) { try { window.goatcounter.count(hit); } catch (e) { /* never break the site */ } }
   function setHash(id) {
     lastHash = id || '';
     try {

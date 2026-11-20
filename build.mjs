@@ -120,6 +120,11 @@ function fontCss() {
 function analytics() {
   const a = site.meta.analytics;
   if (a && a.provider === 'plausible' && a.domain) return `<script defer data-domain="${esc(a.domain)}" src="https://plausible.io/js/script.js"></script>`;
+  if (a && a.provider === 'goatcounter' && a.code) {
+    if (!/^[a-z0-9-]+$/.test(a.code)) throw new Error('meta.analytics.code must be the GoatCounter account name, e.g. "rkgp"');
+    // Self-hosted copy of GoatCounter's count.js (ISC licence); the site counts views itself, so no_onload.
+    return `<script data-goatcounter="https://${a.code}.goatcounter.com/count" data-goatcounter-settings='{"no_onload":true,"no_events":true}' async src="assets/goatcounter.js"></script>`;
+  }
   return '';
 }
 const data = JSON.stringify(site).replace(/</g, '\\u003c');
