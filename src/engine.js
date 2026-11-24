@@ -404,7 +404,7 @@
   }
   function setOverview(on, quiet) {
     S.overview = on;
-    mapbtn.textContent = on ? 'Back to the ride' : 'See everything';
+    mapbtn.innerHTML = on ? '<span class="lg">Back to the ride</span><span class="sm">Back</span>' : '<span class="lg">See everything</span><span class="sm">Everything</span>';
     sheet.hidden = !on;
     if (on) { if (S.view) closeView(function () {}); sheet.scrollTop = 0; track('See everything'); }
     else if (!quiet && S.at) openStation();
