@@ -300,13 +300,14 @@
     stInner.className = 'st-inner';
     let h = '<div class="st-head"><div class="tag rise" style="--i:' + (n++) + '"><i></i><span>' + esc(M.role) + '</span></div>';
     h += '<h2 class="st-name rise" data-type style="--i:' + (n++) + '" aria-label="' + esc(M.name) + '">' + esc(M.name) + '</h2></div><div class="st-body">';
+    h += '<div class="ab-l">';
     A.paragraphs.forEach((p) => { h += '<p class="rise" style="--i:' + (n++) + '">' + esc(p) + '</p>'; });
     h += '<div class="rise" style="--i:' + (n++) + '"><h3>' + esc(A.howTitle) + '</h3><p>' + esc(A.how) + '</p></div>';
-    h += '<div class="cols rise" style="--i:' + (n++) + '"><div><h3>Experience</h3><ul class="tl">' + A.experience.map((x) => '<li><b>' + esc(x.role) + '</b><span>' + esc(x.org) + ' · ' + esc(x.period) + '</span></li>').join('') + '</ul></div>';
+    h += '<div class="acts rise" style="--i:' + (n++) + '"><a class="btn primary" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a><button class="btn" type="button" data-go="hub">Back to the map</button></div></div>';
+    h += '<div class="cols ab-r rise" style="--i:' + (n++) + '"><div><h3>Experience</h3><ul class="tl">' + A.experience.map((x) => '<li><b>' + esc(x.role) + '</b><span>' + esc(x.org) + ' · ' + esc(x.period) + '</span></li>').join('') + '</ul></div>';
     h += '<div><h3>Education</h3><ul class="tl">' + A.education.map((x) => '<li><b>' + esc(x.what) + '</b><span>' + esc(x.period) + '</span></li>').join('') + '</ul>';
     h += '<h3 style="margin-top:18px">Works with</h3><div class="tools">' + A.skills.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div>';
-    h += '<h3 style="margin-top:18px">Languages</h3><div class="tools">' + A.languages.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div></div></div>';
-    h += '<div class="acts rise" style="--i:' + (n++) + '"><a class="btn primary" href="' + esc(M.linkedin) + '" target="_blank" rel="noopener">Contact me on LinkedIn</a><button class="btn" type="button" data-go="hub">Back to the map</button></div></div>';
+    h += '<h3 style="margin-top:18px">Languages</h3><div class="tools">' + A.languages.map((t) => '<span>' + esc(t) + '</span>').join('') + '</div></div></div></div>';
     stInner.innerHTML = h;
   }
   function countUp() {

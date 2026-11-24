@@ -67,11 +67,11 @@ function body() {
 <div class="stage" id="stage">
   <canvas id="cv" role="img" aria-label="Animated map: a hub with ${site.lines.map((L) => 'a ' + esc(L.title)).join(' and ')}"></canvas>
   <div class="bar">
-    <div class="barleft">
+    <div class="barright">
       <button class="chip" id="mapbtn" type="button"><span class="lg">See everything</span><span class="sm">Everything</span></button>
       <button class="chip" id="aboutbtn" type="button" data-about="1"><span class="lg">${esc(site.about.title)}</span><span class="sm">About</span></button>
-    </div>
 ${contact()}
+    </div>
   </div>
   <div class="mappills gone" id="mappills"></div>
   <div class="panelwrap" id="hubwrap">
