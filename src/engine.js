@@ -698,8 +698,11 @@
 
     const atHub = !S.at && !tr && !S.overview && !S.view && intro >= 1;
     mappills.classList.toggle('gone', !atHub);
+    const hubX = atHub ? map(0, 0)[0] : 0;
     if (atHub) LINES.forEach(function (L, li) {
       const a = along(L.pts, Math.max(150, 118 / cam.z)), sp = map(a.x, a.y), el = $('mp-' + li);
+      // the arrow points the way the line leaves the hub: left of the hub, the arrow flips and leads the label
+      if (el) el.classList.toggle('west', sp[0] < hubX - 4);
       if (el) { const half = (el.offsetWidth || 90) / 2 + 8; sp[0] = clamp(sp[0], half, W - half); }
       if (el) el.style.transform = 'translate(-50%,-50%) translate(' + sp[0].toFixed(1) + 'px,' + sp[1].toFixed(1) + 'px)';
     });

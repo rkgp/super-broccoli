@@ -105,6 +105,7 @@ body.bleed .stage { border: 0; border-radius: 0; max-width: none; height: max(56
 .pill:nth-of-type(2) { animation-delay: 0.9s; }
 .pill i { width: 14px; height: 8px; border-radius: 4px; flex: none; }
 .pill svg { flex: none; }
+.pill.west svg { order: -1; transform: scaleX(-1); }
 @keyframes halo {
   0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 0%, transparent); }
   50% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--ink) 16%, transparent); }
