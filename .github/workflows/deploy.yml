@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 22
       - name: Build (fails if the content file has a mistake)
-        run: node build.mjs --variant=line --route=galaxy --noindex   # chosen look and route (2026-11-17); --noindex keeps it out of search engines until launch
+        run: node build.mjs --variant=line --route=galaxy   # chosen look and route (2026-11-17); --noindex removed at launch on jorritvanderveen.com (2026-11-25)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
